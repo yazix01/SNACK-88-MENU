@@ -251,6 +251,7 @@ h1, h2, .brand-name {
     border-radius: 50%;
     animation: spin 1s linear infinite;
     display: none;
+    z-index: 100;
 }
 
 .loading-spinner.active {

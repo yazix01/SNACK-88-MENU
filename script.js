@@ -76,6 +76,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300); 
         
         setupEventListeners();
+        
+        // Start background sequential preloading of remaining images 1 second after load
+        setTimeout(backgroundPreloadAll, 1000);
+    }
+
+    function backgroundPreloadAll() {
+        const toLoad = menuImages.filter(img => !img.preloaded);
+        let i = 0;
+        
+        function loadNext() {
+            if (i >= toLoad.length) return;
+            const item = toLoad[i];
+            if (!item.preloaded) {
+                const img = new Image();
+                img.onload = img.onerror = () => {
+                    item.preloaded = true;
+                    i++;
+                    setTimeout(loadNext, 100); // 100ms pause between loads
+                };
+                img.src = item.url;
+            } else {
+                i++;
+                loadNext();
+            }
+        }
+        
+        loadNext();
     }
 
     // Smart preloading for fast interactions without loading everything at once
@@ -119,6 +146,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const newImg = document.createElement('img');
         newImg.src = nextImage.url;
         newImg.className = 'menu-image';
+        
+        // Handle loading spinner if the image is not yet cached
+        if (!nextImage.preloaded) {
+            loadingSpinner.classList.add('active');
+        } else {
+            loadingSpinner.classList.remove('active');
+        }
+        
+        newImg.onload = () => {
+            nextImage.preloaded = true;
+            if (menuImages[currentIndex].url === newImg.src) {
+                loadingSpinner.classList.remove('active');
+            }
+        };
+        
+        newImg.onerror = () => {
+            if (menuImages[currentIndex].url === newImg.src) {
+                loadingSpinner.classList.remove('active');
+            }
+        };
         
         // Position it off-screen depending on direction
         newImg.style.transition = 'none';
