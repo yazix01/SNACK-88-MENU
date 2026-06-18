@@ -252,6 +252,7 @@ h1, h2, .brand-name {
     animation: spin 1s linear infinite;
     display: none;
     z-index: 100;
+    pointer-events: none;
 }
 
 .loading-spinner.active {
@@ -290,6 +291,8 @@ h1, h2, .brand-name {
     cursor: pointer;
     flex: 1;
     max-width: 120px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .nav-btn:not(:disabled):active {
