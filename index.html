@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snack 88 - Menu</title>
+    <meta name="description" content="Snack 88 Premium Digital Menu">
+    <link rel="icon" type="image/png" href="assets/ICON.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <img src="assets/LOGO.png" alt="Snack 88 Logo" class="splash-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\'%3E%3Ccircle cx=\'60\' cy=\'60\' r=\'50\' fill=\'white\'/%3E%3Ctext x=\'60\' y=\'65\' font-family=\'sans-serif\' font-weight=\'bold\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23B71C1C\'%3ESNACK 88%3C/text%3E%3C/svg%3E'">
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="hidden">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="logo-area">
+                <img src="assets/LOGO.png" alt="Snack 88 Logo" class="header-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'%3E%3Ccircle cx=\'25\' cy=\'25\' r=\'20\' fill=\'white\'/%3E%3C/svg%3E'">
+                <div class="header-titles">
+                    <span class="brand-name">SNACK 88</span>
+                    <h1 class="header-title">MENU</h1>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="https://www.instagram.com/snack__88/" target="_blank" rel="noopener noreferrer" class="instagram-btn" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="white" stroke-width="2" fill="none"/>
+                        <circle cx="12" cy="12" r="5" stroke="white" stroke-width="2" fill="none"/>
+                        <circle cx="17.5" cy="6.5" r="1.5" fill="white"/>
+                    </svg>
+                    <span>@snack__88</span>
+                </a>
+                <button id="qr-btn" class="action-btn">Share / QR Code</button>
+            </div>
+        </header>
+
+        <!-- Menu Viewer -->
+        <section class="menu-viewer">
+            <div class="image-container" id="image-container">
+                <img id="current-menu-image" src="" alt="Menu Page" class="menu-image">
+                <div class="loading-spinner" id="loading-spinner"></div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="nav-controls">
+                <button id="prev-btn" class="nav-btn">Previous</button>
+                <div class="counter" id="image-counter">0 / 0</div>
+                <button id="next-btn" class="nav-btn">Next</button>
+            </div>
+            <div class="next-indicator" id="next-indicator"></div>
+        </section>
+        
+        <footer class="footer">
+            <p>Created for Snack 88</p>
+        </footer>
+    </main>
+
+    <!-- QR Code Modal -->
+    <div id="qr-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <button id="close-modal-btn" class="close-btn" aria-label="Close modal">&times;</button>
+            <h2>Share Menu</h2>
+            <div class="qr-container">
+                <img src="assets/qrcode.png" alt="QR Code" class="qr-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'white\'/%3E%3Ctext x=\'100\' y=\'100\' font-family=\'sans-serif\' font-size=\'16\' text-anchor=\'middle\' fill=\'black\'%3EPLACEHOLDER QR%3C/text%3E%3C/svg%3E'">
+            </div>
+            <div class="url-share">
+                <input type="text" id="website-url" value="https://snack88.com" readonly aria-label="Website URL">
+                <button id="copy-btn" class="primary-btn">Copy URL</button>
+            </div>
+            <a href="assets/qrcode.png" download="snack88-qrcode.png" class="download-btn secondary-btn" id="download-qr-btn">Download QR</a>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">Link copied successfully</div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox hidden">
+        <button id="lightbox-close" class="lightbox-close" aria-label="Close">&#x2715;</button>
+        <div id="lightbox-container" class="lightbox-container">
+            <img id="lightbox-img" class="lightbox-img" alt="Menu full view">
+        </div>
+    </div>
+
+    <!-- Zoom Controls — outside lightbox so overlay doesn't block clicks -->
+    <div id="zoom-controls" class="modern-zoom-controls hidden">
+        <button id="zoom-out" class="m-zoom-btn" aria-label="Zoom out">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="pointer-events:none"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="m-zoom-indicator">
+            <span id="zoom-label" class="m-zoom-text">100%</span>
+        </div>
+        <button id="zoom-in" class="m-zoom-btn" aria-label="Zoom in">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="pointer-events:none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
