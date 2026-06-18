@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Snack 88 - Menu</title>
     <meta name="description" content="Snack 88 Premium Digital Menu">
-    <link rel="icon" type="image/png" href="assets/ICON.png">
+    <link rel="icon" type="image/webp" href="assets/ICON.webp">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="assets/BURGER.webp" fetchpriority="high">
 </head>
 <body>
     <!-- Splash Screen -->
-    <div id="splash-screen" class="splash-screen">
-        <img src="assets/LOGO.png" alt="Snack 88 Logo" class="splash-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\'%3E%3Ccircle cx=\'60\' cy=\'60\' r=\'50\' fill=\'white\'/%3E%3Ctext x=\'60\' y=\'65\' font-family=\'sans-serif\' font-weight=\'bold\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23B71C1C\'%3ESNACK 88%3C/text%3E%3C/svg%3E'">
+    <div id="splash-screen" class="splash-screen" onclick="skipIntro()">
+        <img src="assets/LOGO.webp" alt="Snack 88 Logo" class="splash-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\'%3E%3Ccircle cx=\'60\' cy=\'60\' r=\'50\' fill=\'white\'/%3E%3Ctext x=\'60\' y=\'65\' font-family=\'sans-serif\' font-weight=\'bold\' font-size=\'18\' text-anchor=\'middle\' fill=\'%23B71C1C\'%3ESNACK 88%3C/text%3E%3C/svg%3E'">
     </div>
 
     <!-- Main Content -->
@@ -22,7 +23,7 @@
         <!-- Header -->
         <header class="top-header">
             <div class="logo-area">
-                <img src="assets/LOGO.png" alt="Snack 88 Logo" class="header-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'%3E%3Ccircle cx=\'25\' cy=\'25\' r=\'20\' fill=\'white\'/%3E%3C/svg%3E'">
+                <img src="assets/LOGO.webp" alt="Snack 88 Logo" class="header-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'%3E%3Ccircle cx=\'25\' cy=\'25\' r=\'20\' fill=\'white\'/%3E%3C/svg%3E'">
                 <div class="header-titles">
                     <span class="brand-name">SNACK 88</span>
                     <h1 class="header-title">MENU</h1>
@@ -44,8 +45,7 @@
         <!-- Menu Viewer -->
         <section class="menu-viewer">
             <div class="image-container" id="image-container">
-                <img id="current-menu-image" src="" alt="Menu Page" class="menu-image">
-                <div class="loading-spinner" id="loading-spinner"></div>
+                <img id="current-menu-image" src="assets/BURGER.webp" alt="Menu Page" class="menu-image" style="transform: translateX(0);" fetchpriority="high">
             </div>
             
             <!-- Navigation -->
@@ -102,6 +102,6 @@
         </button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

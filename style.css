@@ -45,7 +45,8 @@ body {
 
 /* Typography */
 h1, h2, .brand-name {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
 }
 
 .hidden {
@@ -150,8 +151,8 @@ h1, h2, .brand-name {
     border-radius: var(--radius-pill);
     font-family: inherit;
     cursor: pointer;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     transition: all 0.2s ease;
 }
 
@@ -219,9 +220,9 @@ h1, h2, .brand-name {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -238,6 +239,7 @@ h1, h2, .brand-name {
     left: 0;
     user-select: none;
     -webkit-user-drag: none;
+    will-change: transform;
 }
 
 .loading-spinner {
@@ -268,8 +270,8 @@ h1, h2, .brand-name {
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-pill);
     padding: 6px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     flex-shrink: 0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
@@ -546,7 +548,8 @@ h1, h2, .brand-name {
     -webkit-user-drag: none;
     cursor: zoom-in;
     border-radius: var(--radius-lg);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    will-change: transform;
 }
 
 /* Hint: tap cursor feedback */
@@ -564,12 +567,12 @@ h1, h2, .brand-name {
     display: flex;
     align-items: center;
     background: rgba(20, 20, 20, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
     padding: 6px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 

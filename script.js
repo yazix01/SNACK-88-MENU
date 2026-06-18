@@ -1,3 +1,13 @@
+window.skipIntro = function() {
+    const splash = document.getElementById('splash-screen');
+    const main = document.getElementById('main-content');
+    if (splash && !splash.classList.contains('hidden')) {
+        if (main) main.classList.remove('hidden');
+        splash.classList.add('hidden');
+        setTimeout(() => splash.style.display = 'none', 300);
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const splashScreen = document.getElementById('splash-screen');
@@ -48,32 +58,38 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize App
     async function init() {
-        preloadImages();
+        preloadAdjacentImages(0);
         
-        // Ensure splash screen shows for 0.6 seconds (very fast intro)
-        await new Promise(resolve => setTimeout(resolve, 600));
+        // Ensure splash screen shows for a maximum of 50ms (near-zero delay)
+        await new Promise(resolve => setTimeout(resolve, 50));
         
         updateUI('next', true); // Pass isInitial = true
 
-        // Reveal main content immediately underneath the splash screen
+        // Reveal main content
         mainContent.classList.remove('hidden');
 
         // Smooth transition out of splash screen
         splashScreen.classList.add('hidden');
         
-        // Remove splash from DOM flow after it fades out
         setTimeout(() => {
             splashScreen.style.display = 'none';
-        }, 300); // Matches CSS transition duration
+        }, 300); 
         
         setupEventListeners();
     }
 
-    // Preload images for instant switching
-    function preloadImages() {
-        menuImages.forEach(item => {
-            const img = new Image();
-            img.src = item.url;
+    // Smart preloading for fast interactions without loading everything at once
+    function preloadAdjacentImages(index) {
+        if (menuImages.length === 0) return;
+        const nextIdx = (index + 1) % menuImages.length;
+        const prevIdx = (index - 1 + menuImages.length) % menuImages.length;
+        
+        [index, nextIdx, prevIdx].forEach(idx => {
+            if (!menuImages[idx].preloaded) {
+                const img = new Image();
+                img.src = menuImages[idx].url;
+                menuImages[idx].preloaded = true;
+            }
         });
     }
 
@@ -82,15 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const nextImage = menuImages[currentIndex];
         
-        // Initial setup: just insert the image
+        // Initial setup: The image is already hardcoded in HTML for instant LCP
         if (isInitial) {
-            imageContainer.innerHTML = ''; // clear loading spinner and static image
-            const img = document.createElement('img');
-            img.src = nextImage.url;
-            img.className = 'menu-image';
-            img.style.transform = 'translateX(0)';
-            imageContainer.appendChild(img);
-            
             updateIndicators();
             return;
         }
@@ -141,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400); // Wait for transition to finish
         
         updateIndicators();
+        preloadAdjacentImages(currentIndex);
     }
 
     function updateIndicators() {
